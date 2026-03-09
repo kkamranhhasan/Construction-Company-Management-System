@@ -1,0 +1,7 @@
+src/app/api/dashboard/stats/route.ts(25,104): error TS2561: Object literal may only specify known properties, but 'uploadedBy' does not exist in type 'DocumentInclude<DefaultArgs>'. Did you mean to write 'uploader'?
+src/app/api/dashboard/stats/route.ts(29,99): error TS2339: Property 'name' does not exist on type '{ id: string; createdAt: Date; updatedAt: Date; title: string; type: string; url: string; uploaderId: string; }'.
+src/app/api/dashboard/stats/route.ts(29,121): error TS2551: Property 'uploadedBy' does not exist on type '{ id: string; createdAt: Date; updatedAt: Date; title: string; type: string; url: string; uploaderId: string; }'. Did you mean 'uploaderId'?
+src/app/api/documents/route.ts(20,21): error TS2561: Object literal may only specify known properties, but 'uploadedById' does not exist in type 'DocumentWhereInput'. Did you mean to write 'uploaderId'?
+src/app/api/documents/route.ts(22,23): error TS2561: Object literal may only specify known properties, but 'uploadedBy' does not exist in type 'DocumentInclude<DefaultArgs>'. Did you mean to write 'uploader'?
+src/app/api/documents/route.ts(27,23): error TS2561: Object literal may only specify known properties, but 'uploadedBy' does not exist in type 'DocumentInclude<DefaultArgs>'. Did you mean to write 'uploader'?
+src/app/api/documents/route.ts(48,14): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type '(Without<DocumentCreateInput, DocumentUncheckedCreateInput> & DocumentUncheckedCreateInput) | (Without<...> & DocumentCreateInput)'.

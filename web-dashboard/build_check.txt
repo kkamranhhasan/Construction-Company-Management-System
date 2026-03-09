@@ -1,0 +1,106 @@
+
+> web-dashboard@0.1.0 lint
+> eslint
+
+
+E:\Contruction company\web-dashboard\src\app\api\attendance\route.ts
+   46:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  101:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\company\route.ts
+  13:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  43:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\dashboard\stats\route.ts
+  58:11  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\documents\route.ts
+  32:11  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  55:11  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\payroll\route.ts
+  31:11  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  87:11  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\projects\route.ts
+  29:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  57:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\sites\route.ts
+  30:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  54:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\api\workers\route.ts
+  34:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  73:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\dashboard\attendance\page.tsx
+   17:38  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   20:42  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+   41:14  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   70:10  warning  'err' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   98:19  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  160:23  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\Contruction company\web-dashboard\src\app\dashboard\company\page.tsx
+  55:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\app\dashboard\documents\page.tsx
+   5:54  warning  'ImageIcon' is defined but never used      @typescript-eslint/no-unused-vars
+   9:9   warning  'role' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  11:46  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\dashboard\page.tsx
+    5:10  warning  'Users' is defined but never used         @typescript-eslint/no-unused-vars
+    5:72  warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+   11:38  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   99:55  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  140:87  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\dashboard\payroll\page.tsx
+  11:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\dashboard\projects\page.tsx
+  4:73  warning  'Clock' is defined but never used         @typescript-eslint/no-unused-vars
+  7:44  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  8:38  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\dashboard\salary\page.tsx
+  8:17  warning  'session' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  9:44  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\dashboard\sites\page.tsx
+  7:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\dashboard\workers\page.tsx
+    7:42  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  148:56  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\app\login\page.tsx
+   34:14  warning  'err' is defined but never used                                  @typescript-eslint/no-unused-vars
+  106:14  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+E:\Contruction company\web-dashboard\src\app\register\page.tsx
+  48:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\Contruction company\web-dashboard\src\components\dashboard\AccountantDashboard.tsx
+  3:10  warning  'FileText' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\components\dashboard\OwnerDashboard.tsx
+  3:28  warning  'HardHat' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\components\dashboard\SubManagerDashboard.tsx
+  61:91  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+E:\Contruction company\web-dashboard\src\components\scene\ConstructionScene.tsx
+  5:10  warning  'useGLTF' is defined but never used         @typescript-eslint/no-unused-vars
+  5:19  warning  'Environment' is defined but never used     @typescript-eslint/no-unused-vars
+  5:32  warning  'ContactShadows' is defined but never used  @typescript-eslint/no-unused-vars
+
+E:\Contruction company\web-dashboard\src\lib\auth.ts
+   8:37  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  22:36  warning  'req' is defined but never used           @typescript-eslint/no-unused-vars
+  55:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+Γ£û 51 problems (19 errors, 32 warnings)
+

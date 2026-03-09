@@ -1,0 +1,246 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  SUB_MANAGER
+  WORKER
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  phone         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(WORKER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  workerProfile    WorkerProfile?
+  managedSites     Site[]         @relation("SubManager")
+  managedProjects  Project[]      @relation("ProjectManager")
+  uploadedDocs     Document[]     @relation("Uploader")
+  receivedDocs     Document[]     @relation("Recipient")
+  sentMessages     Message[]      @relation("MessageSender")
+  receivedMessages Message[]      @relation("MessageReceiver")
+  notifications    Notification[]
+  accounts         Account[]
+  sessions         Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Company {
+  id                 String   @id @default(cuid())
+  name               String
+  tradeLicense       String   @unique
+  registrationNumber String   @unique
+  address            String
+  contactPhone       String?
+  contactEmail       String?
+  logoUrl            String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Site {
+  id           String   @id @default(cuid())
+  name         String
+  location     String?
+  isActive     Boolean  @default(true)
+  subManagerId String?
+  subManager   User?    @relation("SubManager", fields: [subManagerId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  projects    Project[]
+  workers     WorkerSite[]
+  attendances Attendance[]
+}
+
+model Project {
+  id                 String    @id @default(cuid())
+  name               String
+  location           String
+  startDate          DateTime
+  expectedCompletion DateTime?
+  actualCompletion   DateTime?
+  status             String    @default("PLANNING") // PLANNING, ACTIVE, COMPLETED, ON_HOLD
+  siteId             String
+  site               Site      @relation(fields: [siteId], references: [id])
+  projectManagerId   String?
+  projectManager     User?     @relation("ProjectManager", fields: [projectManagerId], references: [id])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model WorkerProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emiratesId    String?  @unique
+  phone         String?
+  nationality   String?
+  jobTitle      String?
+  skillCategory String?
+  dailyWage     Float    @default(0)
+  bankInfo      String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  assignedSites WorkerSite[]
+  attendances   Attendance[]
+  payrolls      Payroll[]
+}
+
+model WorkerSite {
+  workerId   String
+  worker     WorkerProfile @relation(fields: [workerId], references: [id])
+  siteId     String
+  site       Site          @relation(fields: [siteId], references: [id])
+  assignedAt DateTime      @default(now())
+
+  @@id([workerId, siteId])
+}
+
+model Attendance {
+  id            String        @id @default(cuid())
+  workerId      String
+  worker        WorkerProfile @relation(fields: [workerId], references: [id])
+  siteId        String
+  site          Site          @relation(fields: [siteId], references: [id])
+  date          DateTime      @db.Date
+  clockIn       DateTime?
+  clockInGps    String? // "lat,lng"
+  clockInPhoto  String? // image URL
+  clockOut      DateTime?
+  clockOutGps   String?
+  clockOutPhoto String?
+  status        String        @default("PRESENT") // PRESENT, LATE, ABSENT, HALF_DAY
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@unique([workerId, date])
+}
+
+model Payroll {
+  id          String        @id @default(cuid())
+  workerId    String
+  worker      WorkerProfile @relation(fields: [workerId], references: [id])
+  periodStart DateTime      @db.Date
+  periodEnd   DateTime      @db.Date
+  workingDays Int           @default(0)
+  baseSalary  Float         @default(0)
+  overtime    Float         @default(0)
+  bonuses     Float         @default(0)
+  allowances  Float         @default(0)
+  deductions  Float         @default(0)
+  penalties   Float         @default(0)
+  totalAmount Float         @default(0)
+  status      String        @default("DRAFT") // DRAFT, GENERATED, SUBMITTED, APPROVED, PAID
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  paymentRequest PaymentRequest?
+}
+
+model PaymentRequest {
+  id            String   @id @default(cuid())
+  payrollId     String   @unique
+  payroll       Payroll  @relation(fields: [payrollId], references: [id])
+  requestedById String?
+  approvedById  String?
+  status        String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  comments      String?  @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Document {
+  id          String    @id @default(cuid())
+  title       String
+  type        String // CONTRACT, ID_COPY, PROJECT_DOC, PAYROLL_REPORT, NOTICE, INSTRUCTION, REPORT, ADVICE
+  url         String
+  uploaderId  String
+  uploader    User      @relation("Uploader", fields: [uploaderId], references: [id])
+  recipientId String? // Optional specific user
+  recipient   User?     @relation("Recipient", fields: [recipientId], references: [id])
+  targetRole  String? // Optional specific role (e.g. ALL WORKERS)
+  status      String    @default("PENDING") // PENDING, VERIFIED, EXPIRED
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  sender     User     @relation("MessageSender", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("MessageReceiver", fields: [receiverId], references: [id])
+  content    String   @db.Text
+  fileUrl    String? // Optional attachment URL
+  fileType   String? // e.g. 'image', 'video', 'audio', 'document'
+  fileName   String? // Original file name
+  latitude   Float?  // For live location sharing
+  longitude  Float?  // For live location sharing
+  isDelivered Boolean @default(true) // Marks if the message hit the server/recipient
+  isRead     Boolean  @default(false) // Keeping for backwards compatibility, but we will rely mostly on readAt
+  readAt     DateTime? // Exact timestamp the recipient opened the message
+  createdAt  DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("INFO") // INFO, ALERT, SUCCESS, WARNING
+  isRead    Boolean  @default(false)
+  link      String? // Optional URL to navigate to when clicked
+  createdAt DateTime @default(now())
+}

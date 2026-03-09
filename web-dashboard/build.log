@@ -1,0 +1,23 @@
+
+> web-dashboard@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 3.2s
+  Running TypeScript ...
+Failed to compile.
+
+./src/lib/prisma.ts:7:5
+Type error: Object literal may only specify known properties, and 'datasourceUrl' does not exist in type 'Subset<PrismaClientOptions, PrismaClientOptions>'.
+
+   5 | export const prisma =
+   6 |   globalForPrisma.prisma || new PrismaClient({
+>  7 |     datasourceUrl: process.env.DATABASE_URL
+     |     ^
+   8 |   })
+   9 |
+  10 | if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
+Next.js build worker exited with code: 1 and signal: null
